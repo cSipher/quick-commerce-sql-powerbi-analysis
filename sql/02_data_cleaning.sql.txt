@@ -1,0 +1,37 @@
+-- Clean table
+CREATE TABLE qc_orders_clean (
+    Order_ID VARCHAR(50),
+    Company VARCHAR(100),
+    City VARCHAR(100),
+    Customer_Age INT,
+    Order_Value DECIMAL(10,2),
+    Delivery_Time_Min DECIMAL(5,2),
+    Distance_Km DECIMAL(6,2),
+    Items_Count INT,
+    Product_Category VARCHAR(100),
+    Payment_Method VARCHAR(50),
+    Customer_Rating DECIMAL(3,2),
+    Discount_Applied BIT,
+    Delivery_Partner_Rating DECIMAL(3,2)
+);
+
+-- Insert cleaned data
+INSERT INTO qc_orders_clean
+SELECT
+    Order_ID,
+    Company,
+    NULLIF(LTRIM(RTRIM(City)), ''),
+    TRY_CAST(Customer_Age AS INT),
+    TRY_CAST(Order_Value AS DECIMAL(10,2)),
+    TRY_CAST(Delivery_Time_Min AS DECIMAL(5,2)),
+    TRY_CAST(Distance_Km AS DECIMAL(6,2)),
+    TRY_CAST(FLOOR(TRY_CAST(Items_Count AS FLOAT)) AS INT),
+    Product_Category,
+    Payment_Method,
+    TRY_CAST(Customer_Rating AS DECIMAL(3,2)),
+    CASE 
+        WHEN Discount_Applied IN ('Yes','YES','1','True','true') THEN 1
+        ELSE 0
+    END,
+    TRY_CAST(Delivery_Partner_Rating AS DECIMAL(3,2))
+FROM qc_orders_raw;

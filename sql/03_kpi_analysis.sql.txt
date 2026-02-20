@@ -1,0 +1,32 @@
+-- Overall KPIs
+SELECT
+    COUNT(DISTINCT Order_ID) AS total_orders,
+    SUM(Order_Value) AS total_revenue,
+    AVG(Order_Value) AS avg_order_value
+FROM qc_orders_clean;
+
+-- Revenue by company
+SELECT
+    Company,
+    COUNT(*) AS orders,
+    SUM(Order_Value) AS revenue
+FROM qc_orders_clean
+GROUP BY Company
+ORDER BY revenue DESC;
+
+-- City-wise revenue
+SELECT
+    City,
+    COUNT(*) AS orders,
+    SUM(Order_Value) AS revenue
+FROM qc_orders_clean
+GROUP BY City
+ORDER BY revenue DESC;
+
+-- Discount impact
+SELECT
+    Discount_Applied,
+    COUNT(*) AS orders,
+    AVG(Order_Value) AS avg_order_value
+FROM qc_orders_clean
+GROUP BY Discount_Applied;

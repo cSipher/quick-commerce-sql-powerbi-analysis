@@ -1,0 +1,24 @@
+-- Create database
+CREATE DATABASE QuickCommerce_SQL_Project;
+GO
+
+-- Use database
+USE QuickCommerce_SQL_Project;
+GO
+
+-- Raw table
+CREATE TABLE qc_orders_raw (
+    Order_ID VARCHAR(50),
+    Company VARCHAR(100),
+    City VARCHAR(100),
+    Customer_Age VARCHAR(10),
+    Order_Value VARCHAR(20),
+    Delivery_Time_Min VARCHAR(20),
+    Distance_Km VARCHAR(20),
+    Items_Count VARCHAR(20),
+    Product_Category VARCHAR(100),
+    Payment_Method VARCHAR(50),
+    Customer_Rating VARCHAR(20),
+    Discount_Applied VARCHAR(10),
+    Delivery_Partner_Rating VARCHAR(20)
+);
